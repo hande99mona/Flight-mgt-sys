@@ -21,16 +21,29 @@ public class Flight implements Serializable {
 	private String carrierName;
 	private String source;
 	private String destination;
+	private Double seatPrice;
+	
 	public Flight() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Flight( String carrierName, String source, String destination) {
+	
+	public Flight(String carrierName, String source, String destination, Double seatPrice) {
 		super();
 		this.carrierName = carrierName;
 		this.source = source;
 		this.destination = destination;
+		this.seatPrice = seatPrice;
 	}
+
+	public Double getSeatPrice() {
+		return seatPrice;
+	}
+
+	public void setSeatPrice(Double seatPrice) {
+		this.seatPrice = seatPrice;
+	}
+
 	public int getFlightId() {
 		return flightId;
 	}
@@ -58,10 +71,11 @@ public class Flight implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public String toString() {
-		return "Flight [flightId=" + flightId + ", carrierName=" + carrierName
-				+ ", source=" + source + ", destination=" + destination + "]";
+		return "Flight [flightId=" + flightId + ", carrierName=" + carrierName + ", source=" + source + ", destination="
+				+ destination + ", seatPrice=" + seatPrice + "]";
 	}
 	
 	

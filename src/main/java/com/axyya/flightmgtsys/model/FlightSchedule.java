@@ -9,12 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.context.annotation.Scope;
 
 @Entity
 @Scope(scopeName = "prototype")
-@Table(name = "flight_schedule")
+@Table(name = "flight_schedule",uniqueConstraints = { @UniqueConstraint(columnNames = { "flight_id", "date" }) })
 public class FlightSchedule {
 
 	@Id

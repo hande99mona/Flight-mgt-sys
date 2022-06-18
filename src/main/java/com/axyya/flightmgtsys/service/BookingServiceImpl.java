@@ -1,5 +1,7 @@
 package com.axyya.flightmgtsys.service;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +23,21 @@ public class BookingServiceImpl implements BookingService {
 	private static final Logger log = LoggerFactory.getLogger(App.class);
 
 	@Override
+	@Transactional
 	public boolean addBooking(Booking booking) {
 
 		int flight_id = booking.getSchedule().getFlight().getFlightId();
 		FlightSchedule f = flightScheduleRepo.findByDateAndFlightId(flight_id,
 				booking.getBookingDateTime().toLocalDate());
+		if(f==null)
+		   return false;
 		int availSeats = f.getAvailableSeat();
-		log.info("" + booking.getUser());
 		if (availSeats > booking.getNoOfSeats()) {
-			repo.save(booking);
+			
 			f.setAvailableSeat(availSeats - booking.getNoOfSeats());
-			flightScheduleRepo.save(f);
+			booking.setTotalAmount(booking.getNoOfSeats()*f.getFlight().getSeatPrice());
+			booking.setSchedule(f);
+			repo.save(booking);
 			return true;
 		} else {
 			return false;

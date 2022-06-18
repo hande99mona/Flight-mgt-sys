@@ -33,7 +33,7 @@ public class Booking implements Serializable {
 	@ElementCollection
 	List<Passenger> passengerinfo;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.PERSIST)
 	FlightSchedule schedule;
 
 	public Booking() {
