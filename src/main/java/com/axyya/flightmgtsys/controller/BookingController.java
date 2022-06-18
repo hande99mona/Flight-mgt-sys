@@ -1,0 +1,29 @@
+package com.axyya.flightmgtsys.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.axyya.flightmgtsys.model.Booking;
+import com.axyya.flightmgtsys.service.BookingService;
+
+@RestController
+@RequestMapping(path="/booking")
+public class BookingController {
+	
+	@Autowired
+	BookingService service;
+	
+	@PostMapping(path = "/add-booking")
+	   public ResponseEntity<String> addBooking(@RequestBody Booking booking) {
+		
+		return service.addBooking(booking) ? new ResponseEntity<String>("booking done", HttpStatus.OK)
+				:new ResponseEntity<String>("seats not available", HttpStatus.FORBIDDEN);
+	}
+
+
+}
