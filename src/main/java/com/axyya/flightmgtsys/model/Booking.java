@@ -27,7 +27,7 @@ public class Booking implements Serializable {
 	private Integer bookingId;
 	private double totalAmount;
 	private LocalDateTime bookingDateTime;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne()
 	@JoinColumn(name = "user_id")
 	private User user;
 	@ElementCollection
