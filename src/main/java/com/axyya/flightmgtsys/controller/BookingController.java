@@ -41,13 +41,11 @@ public class BookingController {
      
 	@GetMapping(path = "/find-booking/{id}")
 	public ResponseEntity<Booking> findBookingwithId(@PathVariable("id")Integer id) {
-		Booking response=null;
 		try {
-			  response=service.findBookingById(id);
+			return new ResponseEntity<>(service.findBookingById(id),HttpStatus.OK);
 		} catch (NotFoundException e) {
-			return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(response,HttpStatus.OK);
 		
 	}
 	@PutMapping(path="/update-booking")
